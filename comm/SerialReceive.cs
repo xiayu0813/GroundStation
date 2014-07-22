@@ -74,7 +74,7 @@ namespace GroundStation
         }
 
         void RecvPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
+        {//test
             byte[] RecvBuffer; //接收缓冲区
             RecvBuffer = new byte[RecvPort.BytesToRead]; //接收缓存的大小
             RecvPort.Read(RecvBuffer, 0, RecvBuffer.Length); //读取数据

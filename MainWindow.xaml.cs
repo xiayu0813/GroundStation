@@ -21,16 +21,32 @@ namespace GroundStation
     /// </summary>
     public partial class MainWindow : Window
     {
+        SerialReceive test = new SerialReceive();
         public MainWindow()
         {
             InitializeComponent();
-        }
 
+            Binding binding = new Binding("Value");
+            binding.Source = test;
+            binding.Path = new PropertyPath("showContent");
+            this.OrginalData.SetBinding(TextBox.TextProperty, binding);
+        }
+       
         private void ShowConfigWindow(object sender, RoutedEventArgs e)
         {
             ConfigWindow win = new ConfigWindow();
             win.Owner = this;
             win.Show();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            test.OpenRecvPort();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            test.RecvPort.Close();
         }
     }
 }

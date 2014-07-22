@@ -50,5 +50,27 @@ namespace GroundStation
             }
 
         }
+
+        private void cbRecvPortName_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string[] ports = SerialPort.GetPortNames();
+            if (ports.Length > 0)
+            {
+                cbSendPortName.ItemsSource = ports;
+                cbSendPortName.SelectedIndex = 1;
+            }
+
+        }
+
+        private void cbSendPortName_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string[] ports = SerialPort.GetPortNames();
+            if (ports.Length > 0)
+            {
+                cbSendPortName.ItemsSource = ports;
+                cbSendPortName.SelectedIndex = 1;
+            }
+
+        }
     }
 }

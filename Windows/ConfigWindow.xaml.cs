@@ -28,6 +28,8 @@ namespace GroundStation
 
         private void btConfigOKCliked(object sender, RoutedEventArgs e)
         {
+            GroundStationCore.Config.RecvPortName = cbRecvPortName.SelectedItem as string;
+            GroundStationCore.Config.SendPortName = cbSendPortName.SelectedItem as string;
             Config.Save();
             Close();
         }
@@ -37,39 +39,47 @@ namespace GroundStation
             Close();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void RefreshPortName()
         {
-            string[] ports = SerialPort.GetPortNames();
-            if(ports.Length > 0)
+            string[] ports = SerialPort.GetPortNames(); //获取可用串口
+            if (ports.Length > 0)
             {
                 cbRecvPortName.ItemsSource = ports;
-                cbRecvPortName.SelectedIndex = 0;
-
                 cbSendPortName.ItemsSource = ports;
-                cbSendPortName.SelectedIndex = 1;
-            }
 
+
+                //获取所选串口的下标
+                int index = Array.IndexOf(ports, GroundStationCore.Config.RecvPortName);
+                
+                //如果所选串口可用，则显示出，否则显示第一个串口
+                if (index >= 0)
+                    cbRecvPortName.SelectedIndex = index;
+                else
+                    cbRecvPortName.SelectedIndex = 0;
+
+                index = Array.IndexOf(ports, GroundStationCore.Config.SendPortName);
+                if (index >= 0)
+                    cbSendPortName.SelectedIndex = index;
+                else
+                    cbSendPortName.SelectedIndex = 0;
+
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Config.Load(); //读取配置文件
+            RefreshPortName();
         }
 
         private void cbRecvPortName_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            string[] ports = SerialPort.GetPortNames();
-            if (ports.Length > 0)
-            {
-                cbSendPortName.ItemsSource = ports;
-                cbSendPortName.SelectedIndex = 1;
-            }
-
+            RefreshPortName();
         }
 
         private void cbSendPortName_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            string[] ports = SerialPort.GetPortNames();
-            if (ports.Length > 0)
-            {
-                cbSendPortName.ItemsSource = ports;
-                cbSendPortName.SelectedIndex = 1;
-            }
+            RefreshPortName();
         }
     }
 }

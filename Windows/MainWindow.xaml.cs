@@ -22,28 +22,15 @@ namespace GroundStation
     /// </summary>
     public partial class MainWindow : Window
     {
-        SerialReceive test = new SerialReceive();
-        private const string Cfgfile = "GroundStationConfig.xml";
-        public static Config Config;
         public MainWindow()
         {
             InitializeComponent();
 
             Binding binding = new Binding("Value");
-            binding.Source = test;
+            binding.Source = GroundStationCore.SerialReceive;
             binding.Path = new PropertyPath("showContent");
             this.OrginalData.SetBinding(TextBox.TextProperty, binding);
 
-
-            if (File.Exists(Cfgfile))
-            {
-                Config = Config.Load(Cfgfile);
-            }
-            else
-            {
-                Config = new Config();
-                Config.Save(Config);
-            }
         }
        
         private void ShowConfigWindow(object sender, RoutedEventArgs e)
@@ -55,12 +42,12 @@ namespace GroundStation
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            test.OpenRecvPort();
+            GroundStationCore.SerialReceive.OpenRecvPort();
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            test.RecvPort.Close();
+            GroundStationCore.SerialReceive.RecvPort.Close();
         }
     }
 }

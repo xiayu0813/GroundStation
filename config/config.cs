@@ -23,7 +23,7 @@ namespace GroundStation
             RecvPortName = "COM3";
         }
 
-        public static Config Load(string file)
+        public static Config Load(string file = "GroundStationConfig.xml")
         {
             if (!System.IO.File.Exists(file))
                 return new Config();
@@ -45,7 +45,7 @@ namespace GroundStation
         {
             if (cfg == null)
             {
-                cfg = new Config();
+                cfg = GroundStationCore.Config;
             }
             var fs = new FileStream(file, FileMode.Create);
             var ser = new DataContractSerializer(typeof(Config));

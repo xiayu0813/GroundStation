@@ -51,7 +51,7 @@ namespace GroundStation
         /// </returns>
         public bool OpenRecvPort()
         {
-            RecvPort.PortName = RecvPortName; //串口号
+            RecvPort.PortName = GroundStationCore.Config.RecvPortName; //串口号
             RecvPort.BaudRate = 9600; // 波特率
             RecvPort.Parity = Parity.None; //校验位
             RecvPort.DataBits = 8; //数据位

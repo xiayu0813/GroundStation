@@ -28,6 +28,7 @@ namespace GroundStation
 
         private void btConfigOKCliked(object sender, RoutedEventArgs e)
         {
+            Config.Save();
             Close();
 
         }
@@ -70,7 +71,6 @@ namespace GroundStation
                 cbSendPortName.ItemsSource = ports;
                 cbSendPortName.SelectedIndex = 1;
             }
-
         }
     }
 }

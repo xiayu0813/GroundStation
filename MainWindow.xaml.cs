@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO.Ports;
+using System.IO;
 
 namespace GroundStation
 {
@@ -22,6 +23,8 @@ namespace GroundStation
     public partial class MainWindow : Window
     {
         SerialReceive test = new SerialReceive();
+        private const string Cfgfile = "GroundStation.xml";
+        public static Config Config;
         public MainWindow()
         {
             InitializeComponent();
@@ -30,6 +33,16 @@ namespace GroundStation
             binding.Source = test;
             binding.Path = new PropertyPath("showContent");
             this.OrginalData.SetBinding(TextBox.TextProperty, binding);
+
+
+            if (File.Exists(Cfgfile))
+            {
+                Config = Config.Load(Cfgfile);
+            }
+            else
+            {
+                Config = new Config();
+            }
         }
        
         private void ShowConfigWindow(object sender, RoutedEventArgs e)

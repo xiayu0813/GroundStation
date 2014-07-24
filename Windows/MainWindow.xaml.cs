@@ -23,7 +23,7 @@ namespace GroundStation
     public partial class MainWindow : Window
     {
         SerialReceive test = new SerialReceive();
-        private const string Cfgfile = "GroundStation.xml";
+        private const string Cfgfile = "GroundStationConfig.xml";
         public static Config Config;
         public MainWindow()
         {
@@ -42,6 +42,7 @@ namespace GroundStation
             else
             {
                 Config = new Config();
+                Config.Save(Config);
             }
         }
        

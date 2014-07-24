@@ -10,7 +10,7 @@ using System.Windows;
 namespace GroundStation
 {
     [DataContract]
-    public class Config : ICloneable
+    public class Config
     {
         [DataMember]
         public string SendPortName;
@@ -21,11 +21,6 @@ namespace GroundStation
         {
             SendPortName = "COM2";
             RecvPortName = "COM3";
-        }
-
-        public object Clone()
-        {
-            return (Config)this.MemberwiseClone();
         }
 
         public static Config Load(string file)
@@ -46,7 +41,7 @@ namespace GroundStation
                 return new Config();
             }
         }
-        public static void Save(Config cfg = null ,string file = "GroundStation.xml")
+        public static void Save(Config cfg = null ,string file = "GroundStationConfig.xml")
         {
             if (cfg == null)
             {

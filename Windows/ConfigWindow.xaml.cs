@@ -30,7 +30,6 @@ namespace GroundStation
         {
             Config.Save();
             Close();
-
         }
 
         private void btConfigCancelCliked(object sender, RoutedEventArgs e)

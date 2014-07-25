@@ -31,6 +31,7 @@ namespace GroundStation
             GroundStationCore.Config.RecvPortName = cbRecvPortName.SelectedItem as string;
             GroundStationCore.Config.SendPortName = cbSendPortName.SelectedItem as string;
             Config.Save();
+            GroundStationCore.SerialReceive.OpenRecvPort(); //重新打开串口
             Close();
         }
 
@@ -68,17 +69,8 @@ namespace GroundStation
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            GroundStationCore.SerialReceive.RecvPort.Close();
             Config.Load(); //读取配置文件
-            RefreshPortName();
-        }
-
-        private void cbRecvPortName_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            RefreshPortName();
-        }
-
-        private void cbSendPortName_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
             RefreshPortName();
         }
     }

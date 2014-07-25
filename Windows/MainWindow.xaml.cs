@@ -28,7 +28,7 @@ namespace GroundStation
 
             Binding binding = new Binding("Value");
             binding.Source = GroundStationCore.SerialReceive;
-            binding.Path = new PropertyPath("showContent");
+            binding.Path = new PropertyPath("RecvData");
             this.OrginalData.SetBinding(TextBox.TextProperty, binding);
 
         }

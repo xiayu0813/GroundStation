@@ -12,6 +12,9 @@ namespace GroundStation
         public static Config Config;
         public static SerialReceive SerialReceive = new SerialReceive();
 
+        public static Queue<byte> RecvQueue = new Queue<byte>();
+        public static object LockObject = new object();
+
 
         static GroundStationCore()
         {

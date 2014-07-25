@@ -22,26 +22,22 @@ namespace GroundStation
             }
         }
 
-        private string ShowContent;
-        public string showContent
+        private string recvData = "";
+        public string RecvData
         {
             get
             {
-                return ShowContent;
+                return recvData;
             }
             set
             {
-                    this.ShowContent = value;
-                    NotifyPropertyChanged("showContent");
+                recvData = value;
+                NotifyPropertyChanged("RecvData");
             }
         }
 
         public SerialPort RecvPort = new SerialPort(); //定义接收串口，不配置
-        public string RecvPortName = "COM2"; //串口号
         bool RecvPortIsOpen = false; //串口开启状态
-
-        public Queue<byte> RecvQueue = new Queue<byte>();
-        public object LockObject = new object();
 
         /// <summary>
         /// 打开接收串口
@@ -60,6 +56,7 @@ namespace GroundStation
             if (RecvPortIsOpen == true)//判断串口是否已经打开
             {//串口已经打开
                 RecvPort.Close(); //关闭串口
+                RecvPortIsOpen = false;
             }
 
             RecvPort.Open(); //打开串口
@@ -67,7 +64,7 @@ namespace GroundStation
             {
                 RecvPortIsOpen = true;
                 RecvPort.DataReceived += RecvPort_DataReceived;
-                return true; // 已经打开，返回true 
+                return true; // 已经打开，返回true
             }
             else
                 return false; // 没有打开，返回false
@@ -78,15 +75,18 @@ namespace GroundStation
             byte[] RecvBuffer; //接收缓冲区
             RecvBuffer = new byte[RecvPort.BytesToRead]; //接收缓存的大小
             RecvPort.Read(RecvBuffer, 0, RecvBuffer.Length); //读取数据
-            lock (LockObject) // 在保存数据的时候锁定
+            lock(GroundStationCore.LockObject)
             {
                 for (int i = 0; i < RecvBuffer.Length; i++) //读取到的数据入列
                 {
-                    RecvQueue.Enqueue(RecvBuffer[i]);
-                    showContent += RecvBuffer[i].ToString();
-                    showContent += " ";
+                    GroundStationCore.RecvQueue.Enqueue(RecvBuffer[i]);
+                    if (RecvData.Length > 200) RecvData = string.Empty;
+                    RecvData += RecvBuffer[i].ToString();
+                    RecvData += " ";
                 }
             }
+
+
         }
 
     }

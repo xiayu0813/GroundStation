@@ -89,7 +89,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="comm\SerialReceive.cs" />
+    <Compile Include="Comm\SerialReceive.cs" />
     <Page Include="Windows\ConfigWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -103,10 +103,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GroundStationCore.cs" />
+    <Compile Include="Process\decode.cs" />
     <Compile Include="Windows\ConfigWindow.xaml.cs">
       <DependentUpon>ConfigWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="config\config.cs" />
+    <Compile Include="Config\config.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -159,6 +160,7 @@
   <ItemGroup>
     <Resource Include="groundstation.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

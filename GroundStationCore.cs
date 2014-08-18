@@ -9,10 +9,10 @@ namespace GroundStation
     public static class GroundStationCore
     {
         private const string Cfgfile = "GroundStationConfig.xml";
-        public static Config Config;
-        public static SerialReceive SerialReceive = new SerialReceive();
+        public static Config Config; //配置数据
+        public static SerialReceive SerialReceive = new SerialReceive(); //接收串口
 
-        public static Queue<byte> RecvQueue = new Queue<byte>();
+        public static Queue<byte> qRawData = new Queue<byte>(); //接收到的原始数据
         public static object LockObject = new object();
 
 

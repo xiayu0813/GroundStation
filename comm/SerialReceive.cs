@@ -79,14 +79,14 @@ namespace GroundStation
             {
                 for (int i = 0; i < RecvBuffer.Length; i++) //读取到的数据入列
                 {
-                    GroundStationCore.RecvQueue.Enqueue(RecvBuffer[i]);
+                    GroundStationCore.qRawData.Enqueue(RecvBuffer[i]);
+
+                    //用于显示
                     if (RecvData.Length > 200) RecvData = string.Empty;
                     RecvData += RecvBuffer[i].ToString();
                     RecvData += " ";
                 }
             }
-
-
         }
 
     }

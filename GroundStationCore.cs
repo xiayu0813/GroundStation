@@ -15,6 +15,9 @@ namespace GroundStation
         public static Queue<byte> qRawData = new Queue<byte>(); //接收到的原始数据
         public static object LockObject = new object();
 
+        public static AirCraftState AirCraftState = new AirCraftState();
+        public static decode decode = new decode();
+
 
         static GroundStationCore()
         {

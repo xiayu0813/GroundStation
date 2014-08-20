@@ -26,11 +26,31 @@ namespace GroundStation
         {
             InitializeComponent();
 
-            Binding binding = new Binding("Value");
-            binding.Source = GroundStationCore.SerialReceive;
-            binding.Path = new PropertyPath("RecvData");
-            this.OrginalData.SetBinding(TextBox.TextProperty, binding);
+            //binding the data to textbox
 
+            //received orginal data
+            Binding bindingRecvData = new Binding("Value");
+            bindingRecvData.Source = GroundStationCore.SerialReceive;
+            bindingRecvData.Path = new PropertyPath("RecvData");
+            this.OrginalData.SetBinding(TextBox.TextProperty, bindingRecvData);
+
+            //the x-axis data of aircraft state
+            Binding bindingXAxis = new Binding("Value");
+            bindingXAxis.Source = GroundStationCore.AirCraftState;
+            bindingXAxis.Path = new PropertyPath("XAxis");
+            this.StateX.SetBinding(TextBox.TextProperty, bindingXAxis);
+
+            //the x-axis data of aircraft state
+            Binding bindingYAxis = new Binding("Value");
+            bindingYAxis.Source = GroundStationCore.AirCraftState;
+            bindingYAxis.Path = new PropertyPath("YAxis");
+            this.StateY.SetBinding(TextBox.TextProperty, bindingYAxis);
+            //the x-axis data of aircraft state
+
+            Binding bindingZAxis = new Binding("Value");
+            bindingZAxis.Source = GroundStationCore.AirCraftState;
+            bindingZAxis.Path = new PropertyPath("ZAxis");
+            this.StateX.SetBinding(TextBox.TextProperty, bindingZAxis);
         }
        
         private void ShowConfigWindow(object sender, RoutedEventArgs e)

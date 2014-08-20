@@ -32,7 +32,7 @@ namespace GroundStation
             set
             {
                 xAxis = value;
-                NotifyPropertyChanged("XAis");
+                NotifyPropertyChanged("XAxis");
             }
         }
 

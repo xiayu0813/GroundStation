@@ -50,7 +50,7 @@ namespace GroundStation
             Binding bindingZAxis = new Binding("Value");
             bindingZAxis.Source = GroundStationCore.AirCraftState;
             bindingZAxis.Path = new PropertyPath("ZAxis");
-            this.StateX.SetBinding(TextBox.TextProperty, bindingZAxis);
+            this.StateZ.SetBinding(TextBox.TextProperty, bindingZAxis);
         }
        
         private void ShowConfigWindow(object sender, RoutedEventArgs e)
@@ -63,11 +63,13 @@ namespace GroundStation
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             GroundStationCore.SerialReceive.OpenRecvPort();
+            GroundStationCore.decode.Start();
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
             GroundStationCore.SerialReceive.RecvPort.Close();
+            GroundStationCore.decode.Stop();
         }
     }
 }

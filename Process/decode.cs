@@ -14,19 +14,19 @@ namespace GroundStation
         byte FrameCellData = 0; //接收到的内容
         byte[] FrameContent = new byte[1024];
         byte[] FrameRealContent = new byte[1024];
-
-        public decode()
-        {
-            Start();
-        }
-
+        Thread thread;
         /// <summary>
         /// 开始解码
         /// </summary>
-        private void Start()
+        public void Start()
         {
-            var thread = new Thread(Run);
+            thread = new Thread(Run);
             thread.Start();
+        }
+
+        public void Stop()
+        {
+            thread.Abort();
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace GroundStation
         {
             int resualt = 0;
 
-            for (uint i = StartIndex; i < StartIndex+4; i++ )
+            for (uint i = StartIndex+3; i >= StartIndex; i-- )
             {
                 resualt <<= 8;
                 resualt += source[i];
@@ -97,12 +97,15 @@ namespace GroundStation
 
         private void Run()
         {
-            while (GroundStationCore.qRawData.Count > 0)
+            while (true)
             {
+                
                 lock (GroundStationCore.LockObject)
                 {
-
-                    FrameCellData= GroundStationCore.qRawData.Dequeue(); //取出接收队最开始的内容
+                    if (GroundStationCore.qRawData.Count > 0)
+                        FrameCellData = GroundStationCore.qRawData.Dequeue(); //取出接收队最开始的内容
+                    else
+                        continue; //if there is no data in qRawData,continue to the next loop
                 }
 
                 if(FrameCellData == 0xff)
@@ -135,6 +138,9 @@ namespace GroundStation
                             GroundStationCore.AirCraftState.YAxis = byte2int(FrameRealContent,5);
                             GroundStationCore.AirCraftState.ZAxis = byte2int(FrameRealContent,9);
                         }
+
+                        FrameLength = 0;
+                        FrameCount = 0;
                     }// if(FrameCount == FrameLength)
                 }//if( FrameLength > 0)
             }//while (GroundStationCore.qRawData.Count > 0)

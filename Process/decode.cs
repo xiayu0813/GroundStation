@@ -136,7 +136,17 @@ namespace GroundStation
                         {//校验成功
                             GroundStationCore.AirCraftState.XAxis = byte2int(FrameRealContent,1);
                             GroundStationCore.AirCraftState.YAxis = byte2int(FrameRealContent,5);
-                            GroundStationCore.AirCraftState.ZAxis = byte2int(FrameRealContent,9);
+                            GroundStationCore.AirCraftState.ZAxis = (int)GroundStationCore.ZAxisKF.FilterProcess( byte2int(FrameRealContent,9), 0);
+
+                            GroundStationCore.qRecentState.Enqueue(GroundStationCore.AirCraftState);
+
+                            //only store the recent 10 state
+                            if ( GroundStationCore.qRecentState.Count > 10)
+                            {
+                                GroundStationCore.qRecentState.Dequeue();
+                            }
+
+
                         }
 
                         FrameLength = 0;

@@ -12,15 +12,37 @@ namespace GroundStation
     [DataContract]
     public class Config
     {
+        //接收发送串口号
         [DataMember]
         public string SendPortName;
         [DataMember]
         public string RecvPortName;
+
+        //Z轴Kalman滤波参数
+        [DataMember]
+        public double ZKalmanParaA;
+        [DataMember]
+        public double ZKalmanParaB;
+        [DataMember]
+        public double ZKalmanParaH;
+        [DataMember]
+        public double ZKalmanParaR;
+        [DataMember]
+        public double ZKalmanParaQ;
+
+ 
  
         public Config()
         {
             SendPortName = "COM2";
             RecvPortName = "COM3";
+
+            ZKalmanParaA = 1;
+            ZKalmanParaB = 0;
+            ZKalmanParaH = 1;
+            ZKalmanParaQ = 0.2;
+            ZKalmanParaR = 12;
+
         }
 
         public static Config Load(string file = "GroundStationConfig.xml")

@@ -18,6 +18,17 @@ namespace GroundStation
         public static AirCraftState AirCraftState = new AirCraftState();
         public static decode decode = new decode();
 
+        //保存最近的飞行状态数据
+        public static Queue<AirCraftState> qRecentState = new Queue<AirCraftState>();
+
+        public static KalmanFilter ZAxisKF = new KalmanFilter()
+        { A = Config.ZKalmanParaA,
+          B = Config.ZKalmanParaB,
+          H = Config.ZKalmanParaH,
+          Q = Config.ZKalmanParaQ,
+          R = Config.ZKalmanParaR
+        };
+
 
         static GroundStationCore()
         {

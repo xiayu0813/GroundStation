@@ -40,6 +40,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -103,6 +104,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\AirCraftState.cs" />
+    <Compile Include="Data\ControlData.cs" />
     <Compile Include="GroundStationCore.cs" />
     <Compile Include="Process\decode.cs" />
     <Compile Include="Process\KalmanFilter.cs" />

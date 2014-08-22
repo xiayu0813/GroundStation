@@ -21,6 +21,8 @@ namespace GroundStation
         //保存最近的飞行状态数据
         public static Queue<AirCraftState> qRecentState = new Queue<AirCraftState>();
 
+
+        //Z轴的卡尔曼滤波
         public static KalmanFilter ZAxisKF = new KalmanFilter()
         { A = Config.ZKalmanParaA,
           B = Config.ZKalmanParaB,
@@ -29,6 +31,8 @@ namespace GroundStation
           R = Config.ZKalmanParaR
         };
 
+        //控制数据
+        public static ControlData ControlData = new ControlData(); 
 
         static GroundStationCore()
         {

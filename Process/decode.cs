@@ -146,7 +146,6 @@ namespace GroundStation
                                 GroundStationCore.qRecentState.Dequeue();
                             }
 
-
                         }
 
                         FrameLength = 0;

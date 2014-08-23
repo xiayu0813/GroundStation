@@ -106,6 +106,7 @@
     <Compile Include="Data\AirCraftState.cs" />
     <Compile Include="Data\ControlData.cs" />
     <Compile Include="GroundStationCore.cs" />
+    <Compile Include="Process\ComputeControlData.cs" />
     <Compile Include="Process\decode.cs" />
     <Compile Include="Process\KalmanFilter.cs" />
     <Compile Include="Windows\ConfigWindow.xaml.cs">

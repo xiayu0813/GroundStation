@@ -22,46 +22,46 @@ namespace GroundStation
             }
         }
 
-        private int xAxis;
+        private int _XAxis;
         public int XAxis 
         {
             get
             {
-                return xAxis;
+                return _XAxis;
             }
             set
             {
-                xAxis = value;
+                _XAxis = value;
                 NotifyPropertyChanged("XAxis");
             }
         }
 
-        private int yAxis;
+        private int _YAxis;
 
         public int YAxis
         {
             get
             {
-                return yAxis;
+                return _YAxis;
             }
             set
             {
-                yAxis = value;
+                _YAxis = value;
                 NotifyPropertyChanged("YAxis");
             }
         }
 
 
-        private int zAxis;
+        private int _ZAxis;
         public int ZAxis
         {
             get
             {
-                return zAxis;
+                return _ZAxis;
             }
             set
             {
-                zAxis = value;
+                _ZAxis = value;
                 NotifyPropertyChanged("ZAxis");
             }
         }

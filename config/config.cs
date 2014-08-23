@@ -12,6 +12,8 @@ namespace GroundStation
     [DataContract]
     public class Config
     {
+        public delegate void UpdateDataEventHander();
+        public event UpdateDataEventHander OnUpdateData; //更新数据
         //接收发送串口号
         [DataMember]
         public string SendPortName;
@@ -30,6 +32,14 @@ namespace GroundStation
         [DataMember]
         public double ZKalmanParaQ;
 
+        //控制目标位置
+        [DataMember]
+        public int TargetPositionX;
+        [DataMember]
+        public int TargetPositionY;
+        [DataMember]
+        public int TargetPositionZ;
+
  
  
         public Config()
@@ -43,9 +53,13 @@ namespace GroundStation
             ZKalmanParaQ = 0.2;
             ZKalmanParaR = 12;
 
+            TargetPositionX = 0;
+            TargetPositionY = 0;
+            TargetPositionZ = 200;
+
         }
 
-        public static Config Load(string file = "GroundStationConfig.xml")
+        public Config Load(string file = "GroundStationConfig.xml")
         {
             if (!System.IO.File.Exists(file))
                 return new Config();
@@ -55,6 +69,8 @@ namespace GroundStation
                 var ser = new DataContractSerializer(typeof(Config));
                 var cfg = (Config)ser.ReadObject(fs);
                 fs.Close();
+                if (OnUpdateData != null)
+                    OnUpdateData();
                 return cfg;
             }
             catch
@@ -63,7 +79,7 @@ namespace GroundStation
                 return new Config();
             }
         }
-        public static void Save(Config cfg = null ,string file = "GroundStationConfig.xml")
+        public void Save(Config cfg = null ,string file = "GroundStationConfig.xml")
         {
             if (cfg == null)
             {
@@ -73,6 +89,9 @@ namespace GroundStation
             var ser = new DataContractSerializer(typeof(Config));
             ser.WriteObject(fs, cfg);
             fs.Close();
+            if (OnUpdateData != null)
+                OnUpdateData();
+
         }
     }
 }

@@ -20,6 +20,7 @@ namespace GroundStation
     /// </summary>
     public partial class ConfigWindow : Window
     {
+
         List<string> comList = new List<string>();
         public ConfigWindow()
         {
@@ -30,7 +31,7 @@ namespace GroundStation
         {
             GroundStationCore.Config.RecvPortName = cbRecvPortName.SelectedItem as string;
             GroundStationCore.Config.SendPortName = cbSendPortName.SelectedItem as string;
-            Config.Save();
+            GroundStationCore.Config.Save(); //保存配置
             GroundStationCore.SerialReceive.OpenRecvPort(); //重新打开串口
             Close();
         }
@@ -70,7 +71,7 @@ namespace GroundStation
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             GroundStationCore.SerialReceive.RecvPort.Close();
-            Config.Load(); //读取配置文件
+            GroundStationCore.Config.Load(); //读取配置文件
             RefreshPortName();
         }
     }

@@ -12,8 +12,6 @@ namespace GroundStation
     [DataContract]
     public class Config
     {
-        public delegate void UpdateDataEventHander();
-        public event UpdateDataEventHander OnUpdateData; //更新数据
         //接收发送串口号
         [DataMember]
         public string SendPortName;
@@ -69,8 +67,6 @@ namespace GroundStation
                 var ser = new DataContractSerializer(typeof(Config));
                 var cfg = (Config)ser.ReadObject(fs);
                 fs.Close();
-                if (OnUpdateData != null)
-                    OnUpdateData();
                 return cfg;
             }
             catch
@@ -89,9 +85,6 @@ namespace GroundStation
             var ser = new DataContractSerializer(typeof(Config));
             ser.WriteObject(fs, cfg);
             fs.Close();
-            if (OnUpdateData != null)
-                OnUpdateData();
-
         }
     }
 }

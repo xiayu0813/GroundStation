@@ -8,11 +8,11 @@ namespace GroundStation
     public class KalmanFilter
     {
         //卡尔曼滤波系数
-        public double A { get; set;}
-        public double B { get; set; }
-        public double H { get; set; }
-        public double R { get; set; }
-        public double Q { get; set; }
+        public double A{ get; set;}
+        public double B{ get; set;}
+        public double H{ get; set;}
+        public double R{ get; set;}
+        public double Q{ get; set;}
 
         //卡尔曼滤波中间量
         private double x_hat = 0;
@@ -22,8 +22,18 @@ namespace GroundStation
         private double x_hat_last = 0;
         private double P_last = 0;
         private bool StartFlag = false;
+
+        private void UpdateConfigdata()
+        {
+            A = GroundStationCore.Config.ZKalmanParaA;
+            B = GroundStationCore.Config.ZKalmanParaB;
+            H = GroundStationCore.Config.ZKalmanParaH;
+            R = GroundStationCore.Config.ZKalmanParaR;
+            Q = GroundStationCore.Config.ZKalmanParaQ;
+        }
         public double FilterProcess(double FilterData,double u_last)
         {
+            UpdateConfigdata();
             if (!StartFlag)
             {
                 x_hat_last = FilterData;

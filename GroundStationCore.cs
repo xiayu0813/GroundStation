@@ -10,21 +10,25 @@ namespace GroundStation
     {
         private const string Cfgfile = "GroundStationConfig.xml";
         public static Config Config; //配置数据
-        public static SerialReceive SerialReceive = new SerialReceive(); //接收串口
+        public static SerialReceive SerialReceive = new SerialReceive();
 
         public static Queue<byte> qRawData = new Queue<byte>(); //接收到的原始数据
         public static object LockObject = new object();
 
-        public static AirCraftState AirCraftState = new AirCraftState();//飞行器的当前位置
-        public static AirCraftState TargetPositon = new AirCraftState();//控制的目标位置
+        public static AirCraftState AirCraftCurrentState = new AirCraftState();
+        public static AirCraftState TargetPositon = new AirCraftState()
+        {
+            XAxis = Config.TargetPositionX,
+            YAxis = Config.TargetPositionY,
+            ZAxis = Config.TargetPositionZ
+        };
         public static decode decode = new decode();
-
-
-        //Z轴的卡尔曼滤波
+        
         public static KalmanFilter ZAxisKF = new KalmanFilter();
 
-        //控制数据
         public static ControlData ControlData = new ControlData();
+        public static ComputeControlData ComputeControlData = new ComputeControlData();
+
 
         static GroundStationCore()
         {
@@ -37,6 +41,20 @@ namespace GroundStation
                 Config = new Config();
                 Config.Save();
             }
+            UpdateConfigData();
+        }
+
+        static public void UpdateConfigData()
+        {
+            TargetPositon.XAxis = Config.TargetPositionX;
+            TargetPositon.YAxis = Config.TargetPositionY;
+            TargetPositon.ZAxis = Config.TargetPositionZ;
+
+            ZAxisKF.A = Config.ZKalmanParaA;
+            ZAxisKF.B = Config.ZKalmanParaB;
+            ZAxisKF.H = Config.ZKalmanParaH;
+            ZAxisKF.R = Config.ZKalmanParaR;
+            ZAxisKF.Q = Config.ZKalmanParaQ;
         }
     }
 }

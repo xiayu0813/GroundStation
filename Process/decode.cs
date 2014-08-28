@@ -134,9 +134,10 @@ namespace GroundStation
 
                         if(TestChecksum(FrameRealContent))
                         {//校验成功
-                            GroundStationCore.AirCraftState.XAxis = byte2int(FrameRealContent,1);
-                            GroundStationCore.AirCraftState.YAxis = byte2int(FrameRealContent,5);
-                            GroundStationCore.AirCraftState.ZAxis = (int)GroundStationCore.ZAxisKF.FilterProcess( byte2int(FrameRealContent,9), 0);
+                            GroundStationCore.AirCraftCurrentState.XAxis = byte2int(FrameRealContent,1);
+                            GroundStationCore.AirCraftCurrentState.YAxis = byte2int(FrameRealContent,5);
+                            GroundStationCore.AirCraftCurrentState.ZAxis = (int)GroundStationCore.ZAxisKF.FilterProcess( byte2int(FrameRealContent,9), 0);
+                            GroundStationCore.ComputeControlData.qRecentState.Enqueue(GroundStationCore.AirCraftCurrentState);
                         }
 
                         FrameLength = 0;

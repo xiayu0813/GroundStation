@@ -10,10 +10,11 @@ namespace GroundStation
     {
         public int Threshold { get; set; }
 
-        int Compute()
+        public int Compute(int[] MeasureData)
         {
             int direction = 0;
 
+            
             return direction;
         }
     }
@@ -27,13 +28,70 @@ namespace GroundStation
     {
 
     }
-    /// <summary>
-    /// 根据飞行器的状态计算控制量，解码完成后调用
-    /// </summary>
-    public class ComputeControlData
+
+
+    public class ComputeControlData : INotifyPropertyChanged
     {
-        public ComputeDirection ConputeDirectionX = new ComputeDirection();
-        public ComputeDirection ConputeDirectionZ = new ComputeDirection();
+        public ComputeDirection ComputeDirectionX = new ComputeDirection();
+        public ComputeDirection ComputeDirectionZ = new ComputeDirection();
         
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyPropertyChanged(string propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private int _XDirection;
+        public int XDirection
+        {
+            get
+            {
+                return _XDirection;
+            }
+            set
+            {
+                _XDirection = value;
+                NotifyPropertyChanged("XDirection");
+            }
+        }
+        private int _ZDirection;
+        public int ZDirection
+        {
+            get
+            {
+                return _ZDirection;
+            }
+            set
+            {
+                _ZDirection = value;
+                NotifyPropertyChanged("ZDirection");
+            }
+        }
+
+        private Queue<AirCraftState> _qRecentState = new Queue<AirCraftState>();
+        public Queue<AirCraftState> qRecentState
+        {
+            get
+            {
+                return _qRecentState;
+            }
+            set
+            {
+                while( _qRecentState.Count >= 10)
+                {
+                    _qRecentState.Dequeue();
+                }
+                _qRecentState = value;
+            }
+        }
+
+        public void Compute()
+        {
+            XDirection = ComputeDirectionX.Compute();
+        }
     }
 }

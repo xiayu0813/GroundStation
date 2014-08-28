@@ -36,19 +36,19 @@ namespace GroundStation
 
             //the x-axis data of aircraft state
             Binding bindingXAxis = new Binding("Value");
-            bindingXAxis.Source = GroundStationCore.AirCraftState;
+            bindingXAxis.Source = GroundStationCore.AirCraftCurrentState;
             bindingXAxis.Path = new PropertyPath("XAxis");
             this.StateX.SetBinding(TextBox.TextProperty, bindingXAxis);
 
             //the x-axis data of aircraft state
             Binding bindingYAxis = new Binding("Value");
-            bindingYAxis.Source = GroundStationCore.AirCraftState;
+            bindingYAxis.Source = GroundStationCore.AirCraftCurrentState;
             bindingYAxis.Path = new PropertyPath("YAxis");
             this.StateY.SetBinding(TextBox.TextProperty, bindingYAxis);
             //the x-axis data of aircraft state
 
             Binding bindingZAxis = new Binding("Value");
-            bindingZAxis.Source = GroundStationCore.AirCraftState;
+            bindingZAxis.Source = GroundStationCore.AirCraftCurrentState;
             bindingZAxis.Path = new PropertyPath("ZAxis");
             this.StateZ.SetBinding(TextBox.TextProperty, bindingZAxis);
         }
